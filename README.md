@@ -15,11 +15,22 @@
 - Nodemon:2.0.7
 
 ## 安裝流程
-- 請依照敘述於終端機輸入指令
+請依照敘述於終端機輸入指令
+
 1.開啟終端機將專案存至本機:
-~
+```
+git clone https://github.com/alan78814/AC_S2-3_Restaurants-List.git
+```
 2.進入專案目錄
-~
-3.安裝npm
-~
-4.
+```
+cd AC_S2-3_Restaurants-List
+```
+3.安裝套件
+```
+npm install
+```
+4.啟動專案
+```
+npm run dev
+```
+5.可開啟瀏覽器輸入http://localhost:3000 開始使用
