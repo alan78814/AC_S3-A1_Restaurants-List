@@ -27,10 +27,15 @@ app.get('/restaurants/:restaurant_id', (req, res) => {
 app.get('/search', (req, res) => {
   //使用trim()避免關鍵字含空格
   const keyword = req.query.keyword.trim().toLowerCase()
-  const restaurants = restaurantList.results.filter(restaurant => {
-    return restaurant.name.toLowerCase().includes(keyword) || restaurant.category.toLowerCase().includes(keyword)
-  })
-  res.render('index', { restaurants: restaurants, keyword: keyword })
+  const restaurants = restaurantList.results.filter(restaurant => 
+    restaurant.name.toLowerCase().includes(keyword) || restaurant.category.toLowerCase().includes(keyword)
+  )
+  
+  if (restaurants.length === 0) {
+    res.render('index', { restaurants: restaurants, keyword: keyword, alert: `<h1 class="display-5 mt-5 text-info text-center">搜尋無結果 請重新輸入關鍵字</h1>` })
+  } else {
+    res.render('index', { restaurants: restaurants, keyword: keyword }) 
+  }
 })
 
 // start and listen on the Express server
