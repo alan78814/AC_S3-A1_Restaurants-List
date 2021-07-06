@@ -7,6 +7,21 @@ const port = 3000
 const exphbs = require('express-handlebars')
 const restaurantList = require('./restaurant.json')
 
+//載入mongoose
+const mongoose = require('mongoose')
+// 設定連線到 mongoDB 連線到restaurant-list資料夾
+mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true }) 
+// 取得資料庫連線狀態
+const db = mongoose.connection
+// 連線異常
+db.on('error', () => {
+  console.log('mongodb error!')
+})
+// 連線成功
+db.once('open', () => {
+  console.log('mongodb connected!')
+})
+
 // setting template engine 固定使用語法格式
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
