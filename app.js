@@ -6,6 +6,8 @@ const port = 3000
 // require express-handlebars here 固定使用語法格式
 const exphbs = require('express-handlebars')
 const restaurantList = require('./restaurant.json')
+// 建立  model /require('./models/restaurant.js')  = mongoose.model('Restaurant', restaurantSchema)
+const Restaurant = require('./models/restaurant.js') 
 
 //載入mongoose
 const mongoose = require('mongoose')
@@ -27,9 +29,18 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
 // routes setting
+
+// 原先設定
+// app.get('/', (req, res) => {
+//   // create a variable to store resturant
+//   res.render('index', { restaurants: restaurantList.results })
+// })
+//修改路由:利用db種子資料 故沒先跑 npm run seed會無餐廳資料
 app.get('/', (req, res) => {
-  // create a variable to store resturant
-  res.render('index', { restaurants: restaurantList.results })
+  Restaurant.find() // 取出 Restaurant model 裡的所有資料
+    .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
+    .then(restaurants => res.render('index', { restaurants })) // 將資料傳給 index 樣板
+    .catch(error => console.log(error))
 })
 
 //只需顯示單一元素於show渲染 使用find
