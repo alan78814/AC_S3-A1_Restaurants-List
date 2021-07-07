@@ -43,6 +43,33 @@ app.get('/', (req, res) => {
     .catch(error => console.log(error))
 })
 
+//讀取 New 頁面 (須放在'/restaurants/:restaurant_id'前面)
+app.get('/restaurants/new', (req, res) => {
+  return res.render('new')
+})
+
+// 引用 body-parser
+const bodyParser = require('body-parser')
+// 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
+app.use(bodyParser.urlencoded({ extended: true }))
+
+//設定一條新的路由，來接住表單資料，並且把資料送往資料庫。
+app.post('/restaurants', (req, res) => {
+  const name = req.body.name
+  const name_en = req.body.name_en
+  const category = req.body.category
+  const image = req.body.image
+  const location = req.body.location
+  const phone = req.body.phone
+  const google_map = req.body.google_map
+  const rating = req.body.rating
+  const description = req.body.description
+  return Restaurant.create({ name, name_en, category, image, location, phone, google_map, rating, description })
+  .then(() => res.redirect('/')) // 新增完成後導回首頁
+  .catch(error => console.log(error))
+})
+
+
 //只需顯示單一元素於show渲染 使用find
 app.get('/restaurants/:restaurant_id', (req, res) => {
   const restaurant = restaurantList.results.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
@@ -63,6 +90,7 @@ app.get('/search', (req, res) => {
     res.render('index', { restaurants: restaurants, keyword: keyword }) 
   }
 })
+
 
 // start and listen on the Express server
 app.listen(port, () => {
