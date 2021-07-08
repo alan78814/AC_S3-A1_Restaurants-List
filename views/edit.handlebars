@@ -1,0 +1,51 @@
+<form action="/restaurants/{{restaurants._id}}/edit" method="POST" class="w-50 ml-5 mt-5">
+    <div class="form-group">
+        <label for="mame">餐廳名稱</label>
+        <input type="text" class="form-control" id="name" name="name" value = "{{restaurants.name}}"placeholder="{{餐廳名稱}}">
+    </div>
+
+    <div class="form-group">
+        <label for="name_en">餐廳英文名稱</label>
+        <input type="text" class="form-control" id="name_en" name="name_en" value = "{{restaurants.name_en}}">
+    </div>
+
+    <div class="form-group">
+        <label for="category">餐廳類別</label>
+        <input type="text" class="form-control" id="category" name="category" value = "{{restaurants.category}}">
+    </div>
+
+    <div class="form-group">
+        <label for="image">圖片網址</label>
+        <input type="url" class="form-control" id="image" name="image" 
+        value = "{{restaurants.image}}">
+    </div>
+
+    <div class="form-group">
+        <label for="location">地址</label>
+        <input type="text" class="form-control" id="location" name="location" 
+        value = "{{restaurants.location}}">
+    </div>
+
+     <div class="form-group">
+        <label for="phone">電話</label>
+        <input type="tel" class="form-control" id="phone" name="phone" value = "{{restaurants.phone}}">
+    </div>
+
+    <div class="form-group">
+        <label for="google_map">Google地圖
+        </label>
+        <input type="url" class="form-control" id="google_map" name="google_map" value = "{{restaurants.google_map}}">
+    </div>
+
+    <div class="form-group">
+        <label for="rating">評價</label>
+        <input type="number" class="form-control" id="rating" name="rating" value = "{{restaurants.rating}}">
+    </div>
+
+    <div class="form-group">
+        <label for="description">介紹</label>
+        <input type="text" class="form-control" id="description" name="description" value = "{{restaurants.description}}">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

@@ -80,6 +80,45 @@ app.get('/restaurants/:id', (req, res) => {
   .catch(error => console.log(error))
 })
 
+//點擊edit
+app.get('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(req.params.id)
+    // 找 db 符合_id的項目
+  .lean()
+  .then((restaurants) => res.render('edit', { restaurants }))
+  .catch(error => console.log(error))
+})
+
+//edit 頁面編輯完送出 (做完要到edit.hbs更改路由{{restaurants._id}})
+app.post('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  const name = req.body.name
+  const name_en = req.body.name_en
+  const category = req.body.category
+  const image = req.body.image
+  const location = req.body.location
+  const phone = req.body.phone
+  const google_map = req.body.google_map
+  const rating = req.body.rating
+  const description = req.body.description
+  return Restaurant.findById(id)
+    .then(restaurants => {
+      restaurants.name = name
+      restaurants.name_en = name_en
+      restaurants.category = category
+      restaurants.image = image
+      restaurants.location = location
+      restaurants.phone = phone
+      restaurants.google_map = google_map
+      restaurants.rating = rating
+      restaurants.description = description
+      return restaurants.save()
+    })
+    .then(() => res.redirect(`/restaurants/${id}`))
+    .catch(error => console.log(error))
+})
+
 //搜尋出符合元素可能有多筆於index渲染 使用filter回傳一新陣列
 app.get('/search', (req, res) => {
   //使用trim()避免關鍵字含空格
