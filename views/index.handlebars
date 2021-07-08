@@ -50,7 +50,9 @@
             <u class="mt-1 mr-3">
               <a href="/restaurants/{{this._id}}">Detail</a>
             </u>
-            <button type="button" class="btn btn-danger ml-2">Delete</button>
+            <form action="/restaurants/{{this._id}}/delete" method="POST">
+              <button type="submit" class="btn btn-danger ml-2">Delete</button>
+            </form>
           </div>
         </a>
         {{!/-- 新增按鈕 --}}

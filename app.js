@@ -119,6 +119,15 @@ app.post('/restaurants/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
+//delete功能
+app.post('/restaurants/:id/delete', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .then(restaurants => restaurants.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 //搜尋出符合元素可能有多筆於index渲染 使用filter回傳一新陣列
 app.get('/search', (req, res) => {
   //使用trim()避免關鍵字含空格
