@@ -71,9 +71,13 @@ app.post('/restaurants', (req, res) => {
 
 
 //只需顯示單一元素於show渲染 使用find
-app.get('/restaurants/:restaurant_id', (req, res) => {
-  const restaurant = restaurantList.results.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
-  res.render('show', { restaurant: restaurant })
+app.get('/restaurants/:id', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(req.params.id)
+    // 找 db 符合_id的項目
+  .lean()
+  .then((restaurants) => res.render('show', { restaurants }))
+  .catch(error => console.log(error))
 })
 
 //搜尋出符合元素可能有多筆於index渲染 使用filter回傳一新陣列
