@@ -9,7 +9,7 @@
 - 使用者可以刪除一家餐廳
 
 ## 畫面預覽
-
+![image](https://github.com/alan78814/AC_S2-3_Restaurants-List_CRUD/blob/main/1.PNG)
 
 ## 環境建置
 - Visual Studio Code:1.57.1
