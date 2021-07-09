@@ -23,11 +23,11 @@
 
 1.開啟終端機將專案存至本機:
 ```
-git clone https://github.com/alan78814/AC_S2-3_Restaurants-List.git
+git clone https://github.com/alan78814/AC_S2-3_Restaurants-List_CRUD.git
 ```
 2.進入專案目錄
 ```
-cd AC_S2-3_Restaurants-List
+cd AC_S2-3_Restaurants-List_CRUD
 ```
 3.安裝套件
 ```
