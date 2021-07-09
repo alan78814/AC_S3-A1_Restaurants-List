@@ -29,13 +29,7 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
 // routes setting
-
-// 原先設定
-// app.get('/', (req, res) => {
-//   // create a variable to store resturant
-//   res.render('index', { restaurants: restaurantList.results })
-// })
-//修改路由:利用db種子資料 故沒先跑 npm run seed會無餐廳資料
+//利用db種子資料 故沒先跑 npm run seed會無餐廳資料
 app.get('/', (req, res) => {
   Restaurant.find() // 取出 Restaurant model 裡的所有資料
     .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
@@ -68,7 +62,6 @@ app.post('/restaurants', (req, res) => {
   .then(() => res.redirect('/')) // 新增完成後導回首頁
   .catch(error => console.log(error))
 })
-
 
 //只需顯示單一元素於show渲染 使用find
 app.get('/restaurants/:id', (req, res) => {
@@ -128,21 +121,24 @@ app.post('/restaurants/:id/delete', (req, res) => {
     .catch(error => console.log(error))
 })
 
-//搜尋出符合元素可能有多筆於index渲染 使用filter回傳一新陣列
+//先找出db所有資料 搜尋出符合元素可能有多筆於index渲染 
 app.get('/search', (req, res) => {
   //使用trim()避免關鍵字含空格
   const keyword = req.query.keyword.trim().toLowerCase()
-  const restaurants = restaurantList.results.filter(restaurant => 
-    restaurant.name.toLowerCase().includes(keyword) || restaurant.category.toLowerCase().includes(keyword)
-  )
-  
-  if (restaurants.length === 0) {
-    res.render('index', { restaurants: restaurants, keyword: keyword, alert: `<h1 class="display-5 mt-5 text-info text-center">搜尋無結果 請重新輸入關鍵字</h1>` })
-  } else {
-    res.render('index', { restaurants: restaurants, keyword: keyword }) 
-  }
+  Restaurant.find()
+    .lean()
+    .then((restaurants) => {
+      restaurants = restaurants.filter((restaurant) => 
+        restaurant.name.toLowerCase().includes(keyword) || restaurant.category.toLowerCase().includes(keyword)  
+      )
+      
+      if (restaurants.length === 0) {
+        res.render('index', { restaurants: restaurants, keyword: keyword, alert: `<h1 class="display-5 mt-5 text-info text-center">搜尋無結果 請重新輸入關鍵字</h1>` })
+      } else {
+        res.render('index', { restaurants: restaurants, keyword: keyword }) 
+      }
+    })
 })
-
 
 // start and listen on the Express server
 app.listen(port, () => {

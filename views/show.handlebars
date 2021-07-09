@@ -1,6 +1,6 @@
 <h1 class="mb-1 restaurant-show-title">{{restaurants.name}}</h1>
 <div class="container">
-  <div class="row">
+  <div class="row flex-column">
     <div class="col-12 col-md-10 mx-auto">
       <p class="mb-1">
         <span class="text-secondary">
@@ -35,6 +35,19 @@
 
       <img class="rounded mx-auto d-block mb-4 w-100" src="{{restaurants.image}}" alt="{{restaurants.name}}"
         style="max-width: 600px;">
+    </div>
+
+    {{!-- 新增按鈕 --}}
+    <div class="button mb-5 d-flex justify-content-center">
+      <u class="mt-1 mr-3">
+        <a href="/restaurants/{{restaurants._id}}/edit">Edit</a>
+      </u>
+      <u class="mt-1 mr-3">
+        <a href="/restaurants/{{restaurants._id}}">Detail</a>
+      </u>
+      <form action="/restaurants/{{restaurants._id}}/delete" method="POST">
+        <button type="submit" class="btn btn-danger ml-2">Delete</button>
+      </form>
     </div>
   </div>
 </div>
