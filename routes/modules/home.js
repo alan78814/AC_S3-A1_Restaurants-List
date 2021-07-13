@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
       .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
       .then(restaurants => res.render('index', { restaurants })) // 將資料傳給 index 樣板
       .catch(error => console.log(error))
-  })
+})
 
 // 匯出路由器
 module.exports = router

@@ -18,6 +18,10 @@ db.once('open', () => {
             rating: restaurant.rating,
             description: restaurant.description
         })
+        //.then 執行 db.close()：執行 npm run seed 後自動從終端機上退出
+        .then(() => {
+            db.close()
+        })
     })
     console.log('restaurant seeder done')
 })
