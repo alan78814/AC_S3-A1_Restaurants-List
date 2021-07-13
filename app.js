@@ -2,12 +2,13 @@
 const express = require('express')
 const app = express()
 const port = 3000
-
 // require express-handlebars here 固定使用語法格式
 const exphbs = require('express-handlebars')
 const restaurantList = require('./restaurant.json')
 // 建立  model /require('./models/restaurant.js')  = mongoose.model('Restaurant', restaurantSchema)
-const Restaurant = require('./models/restaurant.js') 
+const Restaurant = require('./models/restaurant.js')
+// 載入 method-override
+const methodOverride = require('method-override') 
 
 //載入mongoose
 const mongoose = require('mongoose')
@@ -28,8 +29,15 @@ db.once('open', () => {
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
+// 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
+app.use(express.urlencoded({ extended: true })) //改寫成 express
+
+// 設定每一筆請求都會透過 methodOverride 進行前置處理
+app.use(methodOverride('_method'))
+
 // routes setting
-//利用db種子資料 故沒先跑 npm run seed會無餐廳資料
+// 路由語義化 不變
+// 瀏覽全部餐廳(首頁) 利用db種子資料 故沒先跑 npm run seed會無餐廳資料
 app.get('/', (req, res) => {
   Restaurant.find() // 取出 Restaurant model 裡的所有資料
     .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
@@ -37,17 +45,15 @@ app.get('/', (req, res) => {
     .catch(error => console.log(error))
 })
 
-//讀取 New 頁面 (須放在'/restaurants/:restaurant_id'前面)
+// 路由語義化 不變
+//新增餐廳的表單頁 (須放在'/restaurants/:restaurant_id'前面)
 app.get('/restaurants/new', (req, res) => {
   return res.render('new')
 })
 
-// 引用 body-parser
-const bodyParser = require('body-parser')
-// 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
-app.use(bodyParser.urlencoded({ extended: true }))
 
-//設定一條新的路由，來接住表單資料，並且把資料送往資料庫。
+// 路由語義化 不變
+//新增一筆餐廳。
 app.post('/restaurants', (req, res) => {
   const name = req.body.name
   const name_en = req.body.name_en
@@ -63,7 +69,8 @@ app.post('/restaurants', (req, res) => {
   .catch(error => console.log(error))
 })
 
-//只需顯示單一元素於show渲染 使用find
+// 路由語義化 不變
+//瀏覽特定餐廳，只需顯示單一元素於show渲染 使用find
 app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(req.params.id)
@@ -73,7 +80,8 @@ app.get('/restaurants/:id', (req, res) => {
   .catch(error => console.log(error))
 })
 
-//點擊edit
+// 路由語義化 不變
+//修改餐廳的表單頁，點擊edit
 app.get('/restaurants/:id/edit', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(req.params.id)
@@ -83,8 +91,9 @@ app.get('/restaurants/:id/edit', (req, res) => {
   .catch(error => console.log(error))
 })
 
-//edit 頁面編輯完送出 (做完要到edit.hbs更改路由{{restaurants._id}})
-app.post('/restaurants/:id/edit', (req, res) => {
+// 路由語義化 POST->PUT
+//修改一筆餐廳資料，edit頁面編輯完送出 (做完要到edit.hbs更改路由{{restaurants._id}})
+app.put('/restaurants/:id', (req, res) => {
   const id = req.params.id
   const name = req.body.name
   const name_en = req.body.name_en
@@ -112,8 +121,9 @@ app.post('/restaurants/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-//delete功能
-app.post('/restaurants/:id/delete', (req, res) => {
+// 路由語義化 POST->delete
+//刪除一筆餐廳資料
+app.delete('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .then(restaurants => restaurants.remove())
@@ -121,7 +131,8 @@ app.post('/restaurants/:id/delete', (req, res) => {
     .catch(error => console.log(error))
 })
 
-//先找出db所有資料 搜尋出符合元素可能有多筆於index渲染 
+// 路由語義化 不變
+//搜尋特定餐廳資料 先找出db所有資料 搜尋出符合元素可能有多筆於index渲染 
 app.get('/search', (req, res) => {
   //使用trim()避免關鍵字含空格
   const keyword = req.query.keyword.trim().toLowerCase()

@@ -45,7 +45,7 @@
       <u class="mt-1 mr-3">
         <a href="/restaurants/{{restaurants._id}}">Detail</a>
       </u>
-      <form action="/restaurants/{{restaurants._id}}/delete" method="POST">
+      <form action="/restaurants/{{restaurants._id}}?_method=DELETE" method="POST">
         <button type="submit" class="btn btn-danger ml-2">Delete</button>
       </form>
     </div>
