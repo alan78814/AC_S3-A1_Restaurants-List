@@ -7,6 +7,7 @@
 - 使用者可以瀏覽全部所有餐廳
 - 使用者可以修改一家餐廳的資訊
 - 使用者可以刪除一家餐廳
+- 使用者可以在首頁設定餐廳排序
 
 ## 畫面預覽
 ![image](https://github.com/alan78814/AC_S2-3_Restaurants-List_CRUD/blob/main/1.PNG)
