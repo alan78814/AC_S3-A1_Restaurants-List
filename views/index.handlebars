@@ -1,10 +1,9 @@
 <!-- search bar -->
 <div class="container search-bar">
-  <div class="search-bar-outer ">
-    <div class="search-bar-inner d-flex flex-column">
+  <div class="search-bar-outer d-flex">
+    <div class="search-bar-inner d-flex mr-5">
       <form action="/search">
         <h4 class="mb-2">尋找餐廳：</h4>
-
         <div class="input-group">
           <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類" aria-label="Res taurant Name..."
             value="{{keyword}}" aria-describedby="search-button">
@@ -14,6 +13,20 @@
         </div>
       </form>
     </div>
+    {{!-- test for sort bar --}}
+    <form action="/sort" method="POST">
+      <div class="form-group mt-4">
+        <label for="sort">排序選擇</label>
+        <select name="sort" id="sort" onchange="submit()">
+          <option value="asc" {{{checkAsc name}}}>A->Z</option>
+          <option value="desc" {{{checkDesc name}}}>Z->A</option>
+          <option value="category" {{{checkCategory name}}}>類別</option>
+          <option value="location" {{{checkLocation name}}}>地區</option>
+          <option value="rating" {{{checkRating name}}}>評分</option>
+        </select>
+      </div>
+    </form>
+    {{!--// test for sort bar --}}
   </div>
 </div>
 

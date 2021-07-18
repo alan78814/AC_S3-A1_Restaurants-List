@@ -11,11 +11,35 @@ const Restaurant = require('./models/restaurant.js')
 const methodOverride = require('method-override')
 // 引用路由器
 const routes = require('./routes')
-
 // 載入 mongoose.js
 require('./config/mongoose')
 // setting template engine 固定使用語法格式
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+app.engine('handlebars', exphbs({
+  defaultLayout: 'main',
+  // 保留選擇資料
+  helpers: {
+    checkAsc: function (name) {
+      if (name === "asc")
+      return "selected"
+    },
+    checkDesc: function (name) {
+      if(name === "desc")
+      return "selected"
+    },
+    checkCategory: function (name) {
+      if(name === "category")
+      return "selected"
+    },
+    checkLocation: function (name) {
+      if(name === "location")
+      return "selected"
+    },
+    checkRating: function (name) {
+      if(name === "rating")
+      return "selected"
+    },
+  }
+}))
 app.set('view engine', 'handlebars')
 // 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
 app.use(express.urlencoded({ extended: true })) //改寫成 express
