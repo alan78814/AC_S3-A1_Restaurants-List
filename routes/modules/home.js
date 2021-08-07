@@ -15,16 +15,18 @@ router.post('/sort', (req, res) => {
     location: { location: "asc" },
     rating: { rating: "desc" },
   }
-  Restaurant.find() // 取出 Restaurant model 裡的所有資料
+  const userId = req.user._id
+  Restaurant.find({ userId }) // 取出 Restaurant model 裡的所有資料
     .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
     .sort(sortCondition[name])
-    .then(restaurants => res.render('index', { restaurants, name})) // 將資料傳給 index 樣板
+    .then(restaurants => res.render('index', { restaurants, name })) // 將資料傳給 index 樣板
     .catch(error => console.log(error))
 })
 
 // 瀏覽全部餐廳(首頁) 利用db種子資料 故沒先跑 npm run seed會無餐廳資料
 router.get('/', (req, res) => {
-  Restaurant.find() // 取出 Restaurant model 裡的所有資料
+  const userId = req.user._id   // 變數設定
+  Restaurant.find({ userId }) // 取出 Restaurant model 裡的所有資料
     .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
     .then(restaurants => res.render('index', { restaurants })) // 將資料傳給 index 樣板
     .catch(error => console.log(error))
