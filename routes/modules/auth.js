@@ -8,7 +8,7 @@ router.get('/facebook', passport.authenticate('facebook', {
     scope: ['email', 'public_profile']
 }))
 
-// facebook 放回我們瀏覽器
+// Facebook 把資料發回來
 router.get('/facebook/callback', passport.authenticate('facebook', {
     successRedirect: '/',
     failureRedirect: '/users/login'

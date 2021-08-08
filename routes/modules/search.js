@@ -1,11 +1,9 @@
-// 引用 Express 與 Express 路由器
 const express = require('express')
 const router = express.Router()
 const Restaurant = require('../../models/restaurant.js')
 
-//搜尋特定餐廳資料 先找出db所有資料 搜尋出符合元素可能有多筆於index渲染 
+//搜尋特定餐廳資料 
 router.get('/', (req, res) => {
-  //使用trim()避免關鍵字含空格
   const keyword = req.query.keyword.trim().toLowerCase()
   const userId = req.user._id
   Restaurant.find({ userId })
@@ -23,6 +21,4 @@ router.get('/', (req, res) => {
     })
 })
 
-
-// 匯出路由器
 module.exports = router

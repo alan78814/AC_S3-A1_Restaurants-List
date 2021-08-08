@@ -4,20 +4,24 @@ const User = require('../../models/user')
 const passport = require('passport')
 const bcrypt = require('bcryptjs')
 
+// 按下login，導入login頁面
 router.get('/login', (req, res) => {
     res.render('login')
 })
 
-// 首先載入 passport，然後更新「登入檢查」，用 Passport 提供的 authenticate 方法執行認證。
+// login頁面，用 Passport 提供的 authenticate 方法執行認證。
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/users/login'
+    failureRedirect: '/users/login',
+    failureFlash: true,
 }))
 
+// 按下register，導入register頁面
 router.get('/register', (req, res) => {
     res.render('register')
 })
 
+// register頁面
 router.post('/register', (req, res) => {
     const { name, email, password, confirmPassword } = req.body
     const errors = []
@@ -62,9 +66,9 @@ router.post('/register', (req, res) => {
         })
 })
 
+// 按下logout
 router.get('/logout', (req, res) => {
-    // Passport.js 提供的函式，會清除 session。
-    req.logout()
+    req.logout()     // Passport.js 提供的函式，會清除 session。
     req.flash('success_msg', '你已經成功登出。')
     res.redirect('/users/login')
 })

@@ -8,6 +8,10 @@
 - 使用者可以修改一家餐廳的資訊
 - 使用者可以刪除一家餐廳
 - 使用者可以在首頁設定餐廳排序
+- 使用者可以註冊帳號，註冊的資料包括：名字、email、密碼、確認密碼。email 與密碼是必填欄位，但名字不是
+- 使用者可以透過 Facebook Login 直接登入
+- 使用者登入才能使用餐廳清單，登入後可以建立並管理專屬他的一個餐廳清單
+
 
 ## 畫面預覽
 ![image](https://github.com/alan78814/AC_S2-3_Restaurants-List_CRUD/blob/main/1.PNG)
@@ -24,11 +28,11 @@
 
 1.開啟終端機將專案存至本機:
 ```
-git clone https://github.com/alan78814/AC_S2-3_Restaurants-List.git
+git clone https://github.com/alan78814/AC_S3-A1_Restaurants-List.git
 ```
 2.進入專案目錄
 ```
-cd AC_S2-3_Restaurants-List
+cd AC_S3-A1_Restaurants-List
 ```
 3.安裝套件
 ```

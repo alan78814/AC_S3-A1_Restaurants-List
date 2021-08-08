@@ -7,8 +7,7 @@ const Restaurant = require('./models/restaurant.js')
 const methodOverride = require('method-override')
 const routes = require('./routes')
 const session = require('express-session')
-// 載入設定檔，要寫在 express-session 以後
-const usePassport = require('./config/passport')
+const usePassport = require('./config/passport') // 要寫在 express-session 以後
 const flash = require('connect-flash')
 
 if (process.env.NODE_ENV !== 'production') {
@@ -44,7 +43,7 @@ app.engine('handlebars', exphbs({
   }
 }))
 app.set('view engine', 'handlebars')
-app.use(express.urlencoded({ extended: true })) //改寫成 express
+app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(express.static('public'))
 app.use(session({
@@ -53,19 +52,19 @@ app.use(session({
   saveUninitialized: true
 }))
 
-// 呼叫 Passport 函式並傳入 app，這條要寫在路由之前
-usePassport(app)
+usePassport(app) // 呼叫 Passport 函式傳入 app，要在路由之前/app.use(session)之後
 
-app.use(flash()) 
+app.use(flash())
 // 設定本地變數 res.locals
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated()
   res.locals.user = req.user
-  res.locals.success_msg = req.flash('success_msg')  // 設定 success_msg 訊息
-  res.locals.warning_msg = req.flash('warning_msg')  // 設定 warning_msg 訊息
+  res.locals.success_msg = req.flash('success_msg')
+  res.locals.warning_msg = req.flash('warning_msg')
+  res.locals.error = req.flash('error')
+  // https://stackoverflow.com/questions/46754409/how-to-get-failureflash-to-show-flash-message-in-passport-js-local-strategy
   next()
 })
-
 app.use(routes)
 
 app.listen(port, () => {

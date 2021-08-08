@@ -26,3 +26,13 @@
     </div>
   {{/each}}
 {{/if}}
+
+{{!-- 登陸驗證的錯誤提示訊息（可看登陸策略 在passport.js） --}}
+{{#if error}}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  {{error}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{{/if}}
