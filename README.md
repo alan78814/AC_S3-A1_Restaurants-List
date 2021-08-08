@@ -38,12 +38,18 @@ cd AC_S3-A1_Restaurants-List
 ```
 npm install
 ```
-4.加入種子資料
+4.設定環境變數檔案
+將檔案 .env.example 檔名改為 .env。
+若要使用 facebook login 功能，需要先到 Facebook for Developers:
+https://developers.facebook.com/?locale=zh_TW 
+取得應用程式編號/密鑰取代 .env 中 FACEBOOK_ID=SKIP / FACEBOOK_SECRET=SKIP 的 SKIP才可使用。
+
+5.加入種子資料
 ```
 npm run seed
 ```
-5.啟動專案
+6.啟動專案
 ```
 npm run dev
 ```
-6.可開啟瀏覽器輸入http://localhost:3000 開始使用
+7.可開啟瀏覽器輸入http://localhost:3000 開始使用
