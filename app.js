@@ -21,25 +21,20 @@ app.engine('handlebars', exphbs({
   // 保留選擇資料
   helpers: {
     checkAsc: function (name) {
-      if (name === "asc")
-        return "selected"
+      if (name === 'asc') { return 'selected' }
     },
     checkDesc: function (name) {
-      if (name === "desc")
-        return "selected"
+      if (name === 'desc') { return 'selected' }
     },
     checkCategory: function (name) {
-      if (name === "category")
-        return "selected"
+      if (name === 'category') { return 'selected' }
     },
     checkLocation: function (name) {
-      if (name === "location")
-        return "selected"
+      if (name === 'location') { return 'selected' }
     },
     checkRating: function (name) {
-      if (name === "rating")
-        return "selected"
-    },
+      if (name === 'rating') { return 'selected' }
+    }
   }
 }))
 app.set('view engine', 'handlebars')
@@ -70,5 +65,3 @@ app.use(routes)
 app.listen(port, () => {
   console.log(`Express is listening on localhost:${port}`)
 })
-
-

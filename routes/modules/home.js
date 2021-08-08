@@ -6,11 +6,11 @@ const Restaurant = require('../../models/restaurant.js')
 router.post('/sort', (req, res) => {
   const name = req.body.sort
   const sortCondition = {
-    asc: { name_en: "asc" },
-    desc: { name_en: "desc" },
-    category: { category: "asc" },
-    location: { location: "asc" },
-    rating: { rating: "desc" },
+    asc: { name_en: 'asc' },
+    desc: { name_en: 'desc' },
+    category: { category: 'asc' },
+    location: { location: 'asc' },
+    rating: { rating: 'desc' }
   }
   const userId = req.user._id
   Restaurant.find({ userId })
@@ -20,7 +20,7 @@ router.post('/sort', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// 瀏覽全部餐廳(首頁) 
+// 瀏覽全部餐廳(首頁)
 router.get('/', (req, res) => {
   const userId = req.user._id
   Restaurant.find({ userId })
